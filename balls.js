@@ -31,8 +31,8 @@ function Ball(element) {
 	};
 
 	function moveBall(xString, yString) {
-		self.ballHTMLElement.css('marginTop', yString);
-		self.ballHTMLElement.css('marginLeft', xString);
+		this.ballHTMLElement.css('marginTop', yString);
+		this.ballHTMLElement.css('marginLeft', xString);
 	};
 
 	// using external object from globals.js
@@ -56,8 +56,7 @@ function Ball(element) {
 		}
 	};
 
-	self.animateBall = function() {
-		console.log("in animate ball func");
+	this.animateBall = function() {
 		var changedXDirectionLastTick = false;
 		var changedYDirectionLastTick = false;
 
@@ -82,12 +81,20 @@ function Ball(element) {
 			moveBall(horizontalMotion, verticalMotion, ballHTMLElement);
 		}, .1);
 	}
-	self.animateBall();
+	//this.animateBall();
 }
 
 
+var element = $('#ball');
+//var element2 = $('#ball2');
 
-var ball = new Ball($('#ball'));
+var ball = new Ball(element);
+ball.animateBall();
+console.log(ball);
+
+// var ball2 = new Ball(ball2);
+// console.log(ball2);
+
 //ball.animateBall(); // not working...
 // console.log(Object.keys(ball));
 // console.log(typeof ball.animateBall);
