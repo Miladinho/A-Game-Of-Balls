@@ -1,6 +1,6 @@
 
 function Ball(element) {
-	self.ballHTMLElement = element;
+	var ballHTMLElement = element;
 	
 	var horizontalMotion;
 	var verticalMotion;
@@ -31,8 +31,8 @@ function Ball(element) {
 	};
 
 	function moveBall(xString, yString) {
-		this.ballHTMLElement.css('marginTop', yString);
-		this.ballHTMLElement.css('marginLeft', xString);
+		ballHTMLElement.css('marginTop', yString);
+		ballHTMLElement.css('marginLeft', xString);
 	};
 
 	// using external object from globals.js
@@ -48,8 +48,8 @@ function Ball(element) {
 	// end
 
 	function getCurrentPosition() {
-		var currX = this.ballHTMLElement.offset().left + this.ballHTMLElement.width()/2;
-		var currY = this.ballHTMLElement.offset().top + this.ballHTMLElement.height()/2;
+		var currX = ballHTMLElement.offset().left + ballHTMLElement.width()/2;
+		var currY = ballHTMLElement.offset().top + ballHTMLElement.height()/2;
 		return {
 			x: currX,
 			y: currY
@@ -86,13 +86,13 @@ function Ball(element) {
 
 
 var element = $('#ball');
-//var element2 = $('#ball2');
+var element2 = $('#ball2');
 
 var ball = new Ball(element);
 ball.animateBall();
 console.log(ball);
 
-// var ball2 = new Ball(ball2);
+// var ball2 = new Ball(element2);
 // console.log(ball2);
 
 //ball.animateBall(); // not working...
