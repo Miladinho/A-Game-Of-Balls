@@ -1,13 +1,17 @@
 
 function Ball(element) {
 	var ballHTMLElement = element;
-	
-	var horizontalMotion;
-	var verticalMotion;
-	function getRandomDirectionString(xString, yString) {
+	this.changedXDirectionLastTick = false;
+	this.changedYDirectionLastTick = false;
+	this.horizontalMotion = "";
+	this.verticalMotion = "";
+
+	this.getRandomDirectionString = function() {
 		direction = getRandomDirection();
-		verticalMotion = direction.y + "=1px";
-		horizontalMotion = direction.x + "=1px";
+		return {
+			x: direction.x + "=1px",
+			y: direction.y + "=1px"
+		};
 	};
 
 	function getRandomDirection() {
@@ -23,25 +27,25 @@ function Ball(element) {
 		else return "+";
 	};
 
-	function reverseDirection(directionString) {
+	this.reverseDirection = function(directionString) {
 		var directionStringArray = directionString.split("");
 		if (directionStringArray[0] === '-') directionStringArray[0] = '+';
 		else directionStringArray[0] = "-";
 		return directionStringArray.join("");
 	};
 
-	function moveBall(xString, yString) {
+	this.moveBall = function(xString, yString) {
 		ballHTMLElement.css('marginTop', yString);
 		ballHTMLElement.css('marginLeft', xString);
 	};
 
 	// using external object from globals.js
-	function xOutOfBounds() {
+	this.xOutOfBounds = function() {
 		var position = getCurrentPosition();
 		return position.x - screenPadding < 0 || position.x + screenPadding > windowWidth;
 	};
 
-	function yOutOfBounds() {
+	this.yOutOfBounds = function() {
 		var position = getCurrentPosition();
 		return position.y - screenPadding < 0 || position.y + screenPadding > windowHeight;
 	};
@@ -56,49 +60,75 @@ function Ball(element) {
 		}
 	};
 
-	this.animateBall = function() {
-		var changedXDirectionLastTick = false;
-		var changedYDirectionLastTick = false;
+}
 
-		getRandomDirectionString(); 
-		setInterval(function() {
-			if (yOutOfBounds() && !changedYDirectionLastTick) {
-				verticalMotion = reverseDirection(verticalMotion);
-				changedYDirectionLastTick = true;
-			} else if (xOutOfBounds() && !changedXDirectionLastTick) {
-				horizontalMotion = reverseDirection(horizontalMotion);
-				changedXDirectionLastTick = true;
-			} else if ((xOutOfBounds() && changedXDirectionLastTick) && (yOutOfBounds() && changedYDirectionLastTick)) {
-				horizontalMotion = reverseDirection(horizontalMotion);
-				changedXDirectionLastTick = true;
-				verticalMotion = reverseDirection(verticalMotion);
-				changedYDirectionLastTick = true;
-			} else {
-				changedXDirectionLastTick = false;
-				changedYDirectionLastTick = false;
-			}
+function BallAnimator(balls) {
+	var balls = balls;
+	var interval;
 
-			moveBall(horizontalMotion, verticalMotion, ballHTMLElement);
+	(function addDiectionToBallsList() {
+		balls.forEach(function(ball) {
+			addDirectonToBall(ball);
+		})
+	})();
+
+	function addDirectonToBall(ball) {
+		var directionString = ball.getRandomDirectionString("",""); 
+		ball.horizontalMotion = directionString.x;
+		ball.verticalMotion = directionString.y;
+	}
+
+	this.addBall = function(ball) {
+		balls.push(ball);
+		addDirectonToBall(ball);
+		clearInterval(interval);
+		this.animateBalls();
+	}
+	this.animateBalls = function() {
+		console.log("animating ");
+
+		interval = setInterval(function() {
+			balls.forEach(function(ball) {
+				if (ball.yOutOfBounds() && !ball.changedYDirectionLastTick) {
+					ball.verticalMotion = ball.reverseDirection(ball.verticalMotion);
+					ball.changedYDirectionLastTick = true;
+				} else if (ball.xOutOfBounds() && !ball.changedXDirectionLastTick) {
+					ball.horizontalMotion = ball.reverseDirection(ball.horizontalMotion);
+					ball.changedXDirectionLastTick = true;
+				} else if ((ball.xOutOfBounds() && ball.changedXDirectionLastTick) && (ball.yOutOfBounds() && ball.changedYDirectionLastTick)) {
+					ball.horizontalMotion = ball.reverseDirection(ball.horizontalMotion);
+					ball.changedXDirectionLastTick = true;
+					ball.verticalMotion = ball.reverseDirection(ball.verticalMotion);
+					ball.changedYDirectionLastTick = true;
+				} else {
+					ball.changedXDirectionLastTick = false;
+					ball.changedYDirectionLastTick = false;
+				}
+
+				ball.moveBall(ball.horizontalMotion, ball.verticalMotion);
+			});
 		}, .1);
 	}
-	//this.animateBall();
 }
 
 
-var element = $('#ball');
-var element2 = $('#ball2');
+// var element = $('#ball');
+// var element2 = $('#ball2');
+// var element3 = $('#ball3');
 
-var ball = new Ball(element);
-ball.animateBall();
-console.log(ball);
-
+// var ball = new Ball(element);
 // var ball2 = new Ball(element2);
-// console.log(ball2);
+// var ball3 = new Ball(element3);
+// var ballsArray = [ball,ball2, ball3];
+var animator = new BallAnimator([]);
 
-//ball.animateBall(); // not working...
-// console.log(Object.keys(ball));
-// console.log(typeof ball.animateBall);
-
+function add() {
+	console.log("adding ball");
+	var d = $('<div></div>').attr('class','circle');
+	var b = new Ball(d);
+	$("body").append(d);
+	animator.addBall(b);
+}
 
 
 // var ballHTMLElement = $('#ball');
