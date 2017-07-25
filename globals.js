@@ -12,7 +12,6 @@ function continuouslyCalculateWindowSize() {
 				|| document.body.offsetWidth);
 		windowHeight = (window.innerHeight || document.documentElement.clientHeight
 				|| document.body.offsetHeight);
-		console.log(windowWidth," ---- ",windowHeight);
 	}, 0.001);
 }
 
