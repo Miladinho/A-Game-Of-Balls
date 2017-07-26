@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Ball Animation</title>
-		<!-- CSS ball animations are taken from https://cssanimation.rocks/spheres/ -->
-		<link rel="stylesheet" href="./eyeball.css"></link>
+		<title>Ball is Life</title>
 		<style type="text/css">
 			.circle {
 			  display: block;
-			  background: radial-gradient(circle at 100px 100px, #5cabff, #000);;
+			  background: radial-gradient(circle at 100px 100px, #eef, #001);
 			  border-radius: 100%;
 			  height: 300px;
 			  width: 300px;
 			  margin: 0;
 			  position: absolute;
 			}
-			body {
-				perspective: 1200px;
-				perspective-origin: 50% 50%;
-				transform-style: preserve-3d;
-				transform: rotateY(0.01deg);
-				background: radial-gradient(circle at 100% 100%, #208ab4 0%, #6fbfff 30%, #4381b2 100%);
-			}
 		</style>
 	</head>
 	<body>
-		<div>
-		<button onclick="add()" style="height:50px;width:100px;">add ball</button>
+		<div id="ballBoard" style="height:100%; width: 100%; position: fixed; top: 0; left:0; background: #eef;" onclick="updateClicks()">
+			<div>
+				<button onclick="window.history.go(-1); return false;" style="height:50px;width:100px;">Go Back</button>
+				<button id="startButton" onclick="startGame()" style="height:50px;width:100px; display: block;">Start Game</button>
+				<div id="clickCounter" style="height:50px;width:100px; background: grey; text-align: center; padding-top: 25px">0 clicks</div>
+				<div id="timer" style="height:50px;width:100px; background: grey; text-align: center; padding-top: 25px"></div>
+				<div id="gif"></div>
+				<audio id="victoryMusic" src="./media/audio/icilawb.mp3" autostart="false"></audio>
+			</div>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="./balls.js"></script>
