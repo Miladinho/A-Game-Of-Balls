@@ -70,6 +70,8 @@ function setGameDifficultyLevel(difficulty) {
 
 function startGame() {
 	document.getElementById("startButton").disabled = true;
+	var vM = document.getElementById("victoryMusic"); vM.play();
+	vM.src= "./media/audio/icilawb.mp3"; 
 	blackBallPossibility = Math.floor(Math.random()*100);
 	blueBallsPossibility = Math.floor(Math.random()*4)+1;
 	blackBallThreshold = Math.floor(Math.random()*100);
