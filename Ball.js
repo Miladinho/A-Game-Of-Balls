@@ -15,6 +15,10 @@ function Ball(element) {
 		};
 	};
 
+	this.getElement = function() {
+		return ballHTMLElement;
+	}
+
 	function getRandomDirection() {
 		return { 
 			x: getPlusOrMinus(),
