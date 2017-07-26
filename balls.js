@@ -8,8 +8,10 @@ var blackBallPossibility;
 var blueBallsPossibility;
 var blackBallThreshold;
 var gameDifficultySpeed = 2; // defualt speed is Padawan
+var numBalls = localStorage.getItem('numBalls');
 
 var blueBallsEvent = $.Event('blueBalls');
+console.log('numballs',numBalls);
 
 function updateClicks() {
 	if (gameActive) {
@@ -84,11 +86,19 @@ function startGame() {
 	blueBallsPossibility = Math.floor(Math.random()*6)+1;
 	blackBallThreshold = Math.floor(Math.random()*100);
 
-	add();
-	//setTimeout(function() {add();},1000)
-
-	gameActive = true;
-	monitorGame();
+	// this is not clean code, needs to be generalized for any numBalls
+	if (numBalls == 2) {
+		add();
+		setTimeout(function() {
+			add();
+			gameActive = true;
+			monitorGame();
+		},300);
+	} else {
+		add();
+		gameActive = true;
+		monitorGame();
+	}
 }
 
 function getScore() {

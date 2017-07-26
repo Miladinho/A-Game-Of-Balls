@@ -10,6 +10,7 @@
     			background: #eef;
 			}
 		</style>
+		<script type="text/javascript" src="./globals.js"></script>
 	</head>
 	<body class="content">
 		<h1>About</h1>
@@ -19,7 +20,7 @@
 			<p>Based on the game and difficulty level of that game that you choose, one or multiple balls will be released onto the page. Balls move faster for higher difficulty levels. Your aim is to pop (click on) all of the balls as fast as possible, taking care not to miss click too many times. Your final score depends on your completion speed and the number of missed clicks. Oh, and, as in life you may get blue balled once in a while, or black balled, that really sucks, so sorry in advance. :(</p>
 
 		<h1>Games</h1>
-			<a href="balls.html">Ms. Solo Ball</a>
-
+			<a href="balls.html" style="display: block;">Ms. Solo Ball</a>
+			<a href="balls.html" style="display: block;" onclick="setNumBalls(2); window.location.href = 'balls.html'; return false;">Los Dos Balones Locos</a>
 	</body>
 </html>
