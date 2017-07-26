@@ -12,15 +12,26 @@
 			  margin: 0;
 			  position: absolute;
 			}
+			.effect
+			{
+			    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="ballBoard" style="height:100%; width: 100%; position: fixed; top: 0; left:0; background: #eef;" onclick="updateClicks()">
-			<div>
-				<button onclick="window.history.go(-1); return false;" style="height:50px;width:100px;">Go Back</button>
-				<button id="startButton" onclick="startGame()" style="height:50px;width:100px; display: block;">Start Game</button>
-				<div id="clickCounter" style="height:50px;width:100px; background: grey; text-align: center; padding-top: 25px">0 clicks</div>
-				<div id="timer" style="height:50px;width:100px; background: grey; text-align: center; padding-top: 25px"></div>
+			<div class="effect" style="max-width: 120px; margin-left: 10px; margin-top: 10px; background: rgba(255,255,255,0.3); padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+				<button onclick="window.history.go(-1); return false;" style="height:50px; width:100px; display: block; margin: 0 auto;">Go Back</button>
+				<button id="startButton" onclick="startGame()" style="height:50px;width:100px; display: block; margin: 0 auto;">Start Game</button>
+				<div id="clickCounter" style="height:50px;width:100px; background: grey; text-align: center; padding-top: 25px; margin: 0 auto;">0 clicks</div>
+				<div id="timer" style="height:50px;width:100px; background: grey; text-align: center; padding-top: 25px; margin: 0 auto;"></div>
+				<div class="effect" style="height:50px;width:100px; background: white; text-align: center; padding-top: 5px; padding-bottom:5px; margin: 0 auto;"> Select Difficulty Below</div>
+
+				<div style="margin: 0 auto; text-align: center;">
+					<button style="height:auto;width:100px; background: green; text-align: center; color: white;" autofocus="true">Padawan</button>
+					<button style="height:auto;width:100px; background: red; text-align: center; color: white;">Jedi</button>
+					<button style="height:auto;width:100px; background: black; text-align: center; color: white;">Pro Nut Cracker</button>
+				</div>
 				<div id="gif"></div>
 				<audio id="victoryMusic" src="./media/audio/icilawb.mp3" autostart="false"></audio>
 			</div>
