@@ -56,18 +56,19 @@ function BallAnimator(balls) {
 				}
 
 				// detecting ball to ball collision
-				// balls.forEach(function(subBall) {
-				// 	if (subBall !== ball) {
-				// 		var subBallPosition = subBall.getCurrentPosition();
-				// 		var ballPosition = ball.getCurrentPosition();
-				// 		if (Math.abs(subBallPosition.x - ballPosition.x) < 150
-				// 			&& Math.abs(subBallPosition.y - ballPosition.y) < 150) {
-				// 			subBall.horizontalMotion = subBall.reverseDirection(subBall.horizontalMotion);
-				// 			ball.horizontalMotion = ball.reverseDirection(ball.horizontalMotion);
-				// 		}
-				// 	}
-				// });
-
+				if (balls.length > 1) {
+					balls.forEach(function(subBall) {
+						if (subBall !== ball) {
+							var subBallPosition = subBall.getCurrentPosition();
+							var ballPosition = ball.getCurrentPosition();
+							if (Math.abs(subBallPosition.x - ballPosition.x) < 150
+								&& Math.abs(subBallPosition.y - ballPosition.y) < 150) {
+								subBall.horizontalMotion = subBall.reverseDirection(subBall.horizontalMotion);
+								ball.horizontalMotion = ball.reverseDirection(ball.horizontalMotion);
+							}
+						}
+					});
+				}
 				ball.moveBall(ball.horizontalMotion, ball.verticalMotion);
 			});
 		}, .01);

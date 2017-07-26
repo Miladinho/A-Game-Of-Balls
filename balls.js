@@ -28,15 +28,28 @@ function monitorGame() {
 			clearInterval(interval);
 			window.history.go(-1);
 		} else if ((animator.getBallsList()).length === 0) {
-			document.getElementById("victoryMusic").play();
-			endGame("Wrecking Ball! Score = "+getScore());
+			if (numBalls == 2) {
+				var vM = document.getElementById("victoryMusic");
+				vM.src = "./media/audio/balls.mp3"; 
+				endGame("You've constrained the balls! If it wasn't for you, these two low-riders would be free ballin' all day long. Score = "+getScore());
+				vM.play();
+			} else {
+				var vM = document.getElementById("victoryMusic");
+				vM.src = "./media/audio/icilawb.mp3"; 
+				endGame("Wrecking Ball! Score = "+getScore());
+				vM.play();
+			}
 			clearInterval(interval);
 		} else if (clicks >= blueBallsPossibility) {
 			animator.getBallsList().forEach(function(ball) {
 				ball.getElement().trigger(blueBallsEvent);
 			});
 			setTimeout(function() {
-				endGame("You got Blue Balled! Ouch, sorry :(");
+				if (numBalls == 2) {
+					endGame("Blue Balls! You've failed to capture these balls. You need both of them to win, remember, two balls of the same sack hang together.");
+				} else {
+					endGame("You got Blue Balled! Ouch, sorry :(");
+				}
 			},100);
 			clearInterval(interval);
 		} else {
@@ -81,7 +94,6 @@ function setGameDifficultyLevel(difficulty) {
 function startGame() {
 	document.getElementById("startButton").disabled = true;
 	var vM = document.getElementById("victoryMusic"); vM.play(); vM.pause();
-	vM.src= "./media/audio/icilawb.mp3"; 
 	blackBallPossibility = Math.floor(Math.random()*100);
 	blueBallsPossibility = Math.floor(Math.random()*6)+1;
 	blackBallThreshold = Math.floor(Math.random()*100);

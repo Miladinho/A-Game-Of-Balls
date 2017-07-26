@@ -15,4 +15,10 @@ function continuouslyCalculateWindowSize() {
 	}, 0.001);
 }
 
+function setNumBalls(num) {
+	console.log("set numBalls to",num);
+	localStorage.setItem('numBalls',num);
+}
+
 continuouslyCalculateWindowSize();
+
