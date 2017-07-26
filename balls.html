@@ -28,18 +28,19 @@
 				<div class="effect" style="height:50px;width:100px; background: white; text-align: center; padding-top: 5px; padding-bottom:5px; margin: 0 auto;"> Select Difficulty Below</div>
 
 				<div style="margin: 0 auto; text-align: center;">
-					<button style="height:auto;width:100px; background: green; text-align: center; color: white;" autofocus="true">Padawan</button>
-					<button style="height:auto;width:100px; background: red; text-align: center; color: white;">Jedi</button>
-					<button style="height:auto;width:100px; background: black; text-align: center; color: white;">Pro Nut Cracker</button>
+					<button style="height:auto;width:100px; background: green; text-align: center; color: white;" onclick="setGameDifficultyLevel(3)" autofocus="true">Padawan</button>
+					<button style="height:auto;width:100px; background: red; text-align: center; color: white;" onclick="setGameDifficultyLevel(5)">Jedi</button>
+					<button style="height:auto;width:100px; background: black; text-align: center; color: white;" onclick="setGameDifficultyLevel(7)">Pro Nut Cracker</button>
 				</div>
 				<div id="gif"></div>
 				<audio id="victoryMusic" src="./media/audio/icilawb.mp3" autostart="false"></audio>
 			</div>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-		<script type="text/javascript" src="./balls.js"></script>
 		<script type="text/javascript" src="./globals.js"></script>
+		<script type="text/javascript" src="./BallAnimator.js"></script>
 		<script type="text/javascript" src="./Ball.js"></script>
+		<script type="text/javascript" src="./balls.js"></script>
 	</body>
 </html>
 
