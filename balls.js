@@ -9,6 +9,8 @@ var blueBallsPossibility;
 var blackBallThreshold;
 var gameDifficultySpeed = 2; // defualt speed is Padawan
 
+var blueBallsEvent = $.Event('blueBalls');
+
 function updateClicks() {
 	if (gameActive) {
 		clicks++;
@@ -20,7 +22,7 @@ function monitorGame() {
 	interval = setInterval(function() {
 		// Getting blackBalled is completely random, in real life it is not, I'm more fair about arbitrary opinions
 		if (blackBallPossibility > blackBallThreshold) {
-			endGame("You got Black Balled. This really sucks, and you have no control over it. You'll be fine. Good bye.");
+			endGame("You got Black Balled. This really sucks. You'll be fine. Good bye.");
 			clearInterval(interval);
 			window.history.go(-1);
 		} else if ((animator.getBallsList()).length === 0) {
@@ -28,7 +30,12 @@ function monitorGame() {
 			endGame("Wrecking Ball! Score = "+getScore());
 			clearInterval(interval);
 		} else if (clicks >= blueBallsPossibility) {
-			endGame("You got blue balls! ouch, sorry :(");
+			animator.getBallsList().forEach(function(ball) {
+				ball.getElement().trigger(blueBallsEvent);
+			});
+			setTimeout(function() {
+				endGame("You got Blue Balled! Ouch, sorry :(");
+			},100);
 			clearInterval(interval);
 		} else {
 			time += 1;
@@ -39,22 +46,23 @@ function monitorGame() {
 
 function add() {
 	var d = $('<div></div>').attr('class','circle');
-    //var top = Math.floor((windowHeight - ballRadius) / 2);
-    //var left = Math.floor((windowWidth - ballRadius) / 2);
-	//d.css({'top':top+'px','left':left+'px'});
 	d.click(function() {
 		d.css('background','radial-gradient(circle at 100px 100px, #FF0000, #001)');
 		setTimeout(function(){
 			animator.setBallsList(animator.getBallsList().filter(function(ball) {
 				return ball.getElement() !== d;
-			}))
-			console.log(animator.getBallsList());
+			}));
 			d.remove();
-		},10)
+		},10);
 	});
 	var b = new Ball(d);
+	d.on('blueBalls', function() {
+		console.log("blues");
+		d.css('background','radial-gradient(circle at 100px 100px, #00f, #001)');
+	});
+
 	if (blackBallPossibility > blackBallThreshold) {
-		d.css('background','radial-gradient(circle at 100px 100px, #000, #001)');
+		d.css('background', 'radial-gradient(circle at 100px 100px, #000, #001)');
 	} else {
 		d.css('background','radial-gradient(circle at 100px 100px, #eef, #001)');
 	}
@@ -70,16 +78,15 @@ function setGameDifficultyLevel(difficulty) {
 
 function startGame() {
 	document.getElementById("startButton").disabled = true;
-	var vM = document.getElementById("victoryMusic"); vM.play();
+	var vM = document.getElementById("victoryMusic"); vM.play(); vM.pause();
 	vM.src= "./media/audio/icilawb.mp3"; 
 	blackBallPossibility = Math.floor(Math.random()*100);
-	blueBallsPossibility = Math.floor(Math.random()*4)+1;
+	blueBallsPossibility = Math.floor(Math.random()*6)+1;
 	blackBallThreshold = Math.floor(Math.random()*100);
-	console.log(blackBallPossibility);
-	// $("#ballBoard").click(function() {
-	// 	updateClicks();
-	// })
+
 	add();
+	//setTimeout(function() {add();},1000)
+
 	gameActive = true;
 	monitorGame();
 }
