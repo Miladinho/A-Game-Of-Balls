@@ -20,14 +20,25 @@ function updateClicks() {
 	}
 }
 
+function isBlackBalled() {
+	return blackBallPossibility > blackBallThreshold;
+}
+
+function gameIsOver() {
+	return (animator.getBallsList()).length === 0;
+}
+
+function isBlueBalled() {
+	return clicks >= blueBallsPossibility;
+}
 function monitorGame() {
 	interval = setInterval(function() {
-		// Getting blackBalled is completely random, in real life it is not, I'm more fair about arbitrary opinions
-		if (blackBallPossibility > blackBallThreshold) {
+		// shoudld probably implement these as triggered event calls
+		if (isBlackBalled()) {
 			endGame("You got Black Balled. This really sucks. You'll be fine. Good bye.");
 			clearInterval(interval);
 			window.history.go(-1);
-		} else if ((animator.getBallsList()).length === 0) {
+		} else if (gameIsOver()) {
 			if (numBalls == 2) {
 				var vM = document.getElementById("victoryMusic");
 				vM.src = "./media/audio/balls.mp3"; 
@@ -40,7 +51,7 @@ function monitorGame() {
 				vM.play();
 			}
 			clearInterval(interval);
-		} else if (clicks >= blueBallsPossibility) {
+		} else if (isBlueBalled()) {
 			animator.getBallsList().forEach(function(ball) {
 				ball.getElement().trigger(blueBallsEvent);
 			});
