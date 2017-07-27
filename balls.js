@@ -21,7 +21,7 @@ function updateClicks() {
 }
 
 function isBlackBalled() {
-	return blackBallPossibility > blackBallThreshold;
+	return blackBallPossibility > 90;  //blackBallThreshold;
 }
 
 function gameIsOver() {
@@ -42,7 +42,7 @@ function monitorGame() {
 			if (numBalls == 2) {
 				var vM = document.getElementById("victoryMusic");
 				vM.src = "./media/audio/balls.mp3"; 
-				endGame("You've constrained the balls! If it wasn't for you, these two low-riders would be free ballin' all day long. Score = "+getScore());
+				endGame("You've constrained the balls! If it wasn't for your quick clicking, these two low-riders would be free ballin' all day long. Score = "+getScore());
 				vM.play();
 			} else {
 				var vM = document.getElementById("victoryMusic");
@@ -61,7 +61,7 @@ function monitorGame() {
 				} else {
 					endGame("You got Blue Balled! Ouch, sorry :(");
 				}
-			},100);
+			},500);
 			clearInterval(interval);
 		} else {
 			time += 1;
@@ -87,7 +87,7 @@ function add() {
 		d.css('background','radial-gradient(circle at 100px 100px, #00f, #001)');
 	});
 
-	if (blackBallPossibility > blackBallThreshold) {
+	if (isBlueBalled()) {
 		d.css('background', 'radial-gradient(circle at 100px 100px, #000, #001)');
 	} else {
 		d.css('background','radial-gradient(circle at 100px 100px, #eef, #001)');
