@@ -87,7 +87,7 @@ function add() {
 		d.css('background','radial-gradient(circle at 100px 100px, #00f, #001)');
 	});
 
-	if (isBlueBalled()) {
+	if (isBlackBalled()) {
 		d.css('background', 'radial-gradient(circle at 100px 100px, #000, #001)');
 	} else {
 		d.css('background','radial-gradient(circle at 100px 100px, #eef, #001)');
