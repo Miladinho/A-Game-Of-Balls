@@ -21,7 +21,7 @@ function updateClicks() {
 }
 
 function isBlackBalled() {
-	return blackBallPossibility > 90;  //blackBallThreshold;
+	return blackBallPossibility > 70;  //blackBallThreshold;
 }
 
 function gameIsOver() {
